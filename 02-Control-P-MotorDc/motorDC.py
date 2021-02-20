@@ -43,7 +43,7 @@ t = np.linspace(0,5)
 x  = odeint(motorDC,x0,t,args=(R,L,J,B,Km,Ka,u))
 
 #plot resultados
-
+plt.title("Step Response Motor Dc")
 plt.plot(t,x[:,0],'b', label=r'$\omega(t) $')
 plt.plot(t,x[:,1],'r', label=r'$i(t) $')
 plt.ylabel('respuesta')

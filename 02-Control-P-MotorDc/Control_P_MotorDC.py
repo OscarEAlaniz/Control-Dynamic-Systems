@@ -62,6 +62,7 @@ x  = odeint(motorControlP,x0,t,args=(R,L,J,B,Km,Ka,Kp))
 
 
 #plot resultados
+plt.title("Control P Motor DC")
 plt.plot([0,1,1,3],[0,0,0.3,0.3],'b-',label=r'$Set point$')
 plt.plot(t,x[:,0],'r', label=r'$\omega(t) $')
 

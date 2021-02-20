@@ -16,7 +16,7 @@ Ka=0.01
 
 # funcion que retorna dx/dt
 
-def motorControlP(x,t,R,L,J,B,Km,Ka,Kp):
+def motorControlP(x,t,R,L,J,B,Km,Ka,Kp,Kd):
     w=x[0]
     i=x[1]
     # Step
@@ -25,9 +25,10 @@ def motorControlP(x,t,R,L,J,B,Km,Ka,Kp):
     else:
         ref =0.3
 
-    # Control P
+    # Control PD
     e = ref - w
-    u=Kp*e
+    e_p =-w
+    u=Kp*e+ Kd*e_p
 
     dwdt = (-B/J)*w + (Km/J)*i
     didt =(-R/L)*i - (Ka/L)*w + (1/L)*u
@@ -54,14 +55,16 @@ step = 0.001
 t = np.arange(Tstar,Tstop, step)
 
 # ganacia de control P
-Kp=1500
+Kp=800
+Kd=0.5
 
 # solucion de ODE
-x  = odeint(motorControlP,x0,t,args=(R,L,J,B,Km,Ka,Kp))
+x  = odeint(motorControlP,x0,t,args=(R,L,J,B,Km,Ka,Kp,Kd))
 
 
 
 #plot resultados
+plt.title("Control PD Motor DC")
 plt.plot([0,1,1,3],[0,0,0.3,0.3],'b-',label=r'$Set point$')
 plt.plot(t,x[:,0],'r', label=r'$\omega(t) $')
 
