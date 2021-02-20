@@ -21,12 +21,6 @@ B12=55
 B21=65
 B22=60
 
-
-
-
-
-
-
 # parametros de braz robot 2GL
 a=l2*l2*m2+l1*(m1+m2)
 b=2*l1*l2*m2
@@ -34,16 +28,10 @@ c=l2*l2*m2
 d=(m1+m2)*(l1*g0)
 e=m2*l2*g0
 
-#Valores de Matrices 
-
-
-
 # parametros de simulacion
 Tstar = 0
 Tstop= 10
 Ts=0.001
-
-
 
 
               # condicion inicial
@@ -59,6 +47,7 @@ e1 =np.zeros(N+2)
 e1p=np.zeros(N+2)
 e2 = np.zeros(N+2)
 e2p = np.zeros(N+2)
+#x=np.zeros(N+2)
 
 r1=np.zeros(N+2)
 r2=np.zeros(N+2)
@@ -71,18 +60,24 @@ t1[0] = 0
 t2[0] = 0   
 
 
-ref =[0.5,0.5]
-refp =[0,0]
+
+qd =[0.5,0.5]
+qdp =[0,0]
+qdpp=[0,0]
 
 er=[e1,e2]
 erp=[e1p,e2p]
 r =[r1,r2]
 
+# parametros del controlador 
+M =2
+N1 =10
+L = 20 
 DELTA =[3,3]
 Kv=[1,1]
 PD=[0,0]
-
-
+fnn=[]
+F = 50*[0.0326,0.5612,0.8819,0.6692,0.1904,0.3689,0.4607,0.9816,0.1564,0.8555,0.6448,0.3763,0.1909,0.4283,0.4820,0.1206,0.5895,0.2262,0.3846,0.5830]
 
 def sgn(x):
     if x>0: 
@@ -100,37 +95,31 @@ def sgn(x):
 
 for k in range(N+1):
 
-    
-    """
-    # Control PD
-    """
     # señales de error
-    er[0]=ref[0]-q1[k]
-    er[1]=ref[1]-q2[k]
-    erp[0]=refp[0]-q1p[k]
-    erp[1]=refp[1]-q2p[k]
+    er[0]=qd[0]-q1[k]
+    er[1]=qd[1]-q2[k]
+    erp[0]=qdp[0]-q1p[k]
+    erp[1]=qdp[1]-q2p[k]
 
     #filtrado de error
 
     r[0]=DELTA[0]*er[0]+erp[0]
     r[1]=DELTA[1]*er[1]+erp[1]
-
-
-
+    norm_r=sqrt(r[0]*r[0]+r[1]*r[1])
     # Terminos PD
     PD[0]=Kv[0]*r[0]
     PD[1]=Kv[1]*r[1]
 
+
+    #Vector de entradas de la RED neuronal 
+    x =[qd[0],qd[1],qdp[0],qdp[1],qdpp[0],qdpp[0],er[0],er[1],erp[0],erp[1]]  
+
+
+    #señal de control PD +NN
     t1[k]=PD[0]
     t2[k]=PD[1]
 
-
-
-
-
-    """
-    #Dinamica del Robot 2GL lazo cerrado
-    """
+ 
     #matriz inercia
     M11=a+b*cos(q2[k])
     M12=c+((b*cos(q2[k]))/2)
