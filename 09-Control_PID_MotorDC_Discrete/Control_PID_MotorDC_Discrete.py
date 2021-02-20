@@ -57,6 +57,7 @@ t = np.arange(Tstar,Tstop+2*Ts, Ts)
 
 
 #plot resultados
+plt.figure(1)
 plt.title("Control PID Motor DC Discrete, $T_s=0.005$")
 plt.plot([0,0,0,5],[0,0,0.3,0.3],'b-',label=r'$Set point$')
 plt.plot(t,w,marker='*',linestyle=':',color='r', label=r'$\omega(t) $')
@@ -64,6 +65,14 @@ plt.plot(t,w,marker='*',linestyle=':',color='r', label=r'$\omega(t) $')
 #plt.plot(t,x[:,1],'r', label=r'$i(t) $')
 
 plt.ylabel('$\omega[rpm]$')
+plt.xlabel('time')
+plt.legend(loc='best')
+
+
+plt.figure(2)
+plt.title("Control Signal , $T_s=0.005$")
+plt.plot(t,u,'b',label=r'$u(t)$')
+plt.ylabel('$Volts[v]$')
 plt.xlabel('time')
 plt.legend(loc='best')
 plt.show()
