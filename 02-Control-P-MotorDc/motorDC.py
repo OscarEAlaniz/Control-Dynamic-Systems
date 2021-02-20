@@ -12,7 +12,7 @@ J = 0.01
 B= 0.1
 Km=0.01
 Ka=0.01
-u=12
+u=1
 
 
 # funcion que retorna dx/dt
