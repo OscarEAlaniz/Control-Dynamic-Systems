@@ -55,14 +55,32 @@ q2 = np.zeros(N+2)
 q2p = np.zeros(N+2)
 t1= np.zeros(N+2)
 t2 = np.zeros(N+2)
+e1 =np.zeros(N+2)
+e1p=np.zeros(N+2)
+e2 = np.zeros(N+2)
+e2p = np.zeros(N+2)
+
+r1=np.zeros(N+2)
+r2=np.zeros(N+2)
+
 q1[0] = 0
 q1p[0] = 0
 q2[0] = 0
 q2p[0] = 0    
-t1[0] = 1
-t2[0] = 1   
+t1[0] = 0
+t2[0] = 0   
 
 
+ref =[0.5,0.5]
+refp =[0,0]
+
+er=[e1,e2]
+erp=[e1p,e2p]
+r =[r1,r2]
+
+DELTA =[3,3]
+Kv=[1,1]
+PD=[0,0]
 
 
 
@@ -86,9 +104,25 @@ for k in range(N+1):
     """
     # Control PD
     """
+    # señales de error
+    er[0]=ref[0]-q1[k]
+    er[1]=ref[1]-q2[k]
+    erp[0]=refp[0]-q1p[k]
+    erp[1]=refp[1]-q2p[k]
+
+    #filtrado de error
+
+    r[0]=DELTA[0]*er[0]+erp[0]
+    r[1]=DELTA[1]*er[1]+erp[1]
 
 
 
+    # Terminos PD
+    PD[0]=Kv[0]*r[0]
+    PD[1]=Kv[1]*r[1]
+
+    t1[k]=PD[0]
+    t2[k]=PD[1]
 
 
 
