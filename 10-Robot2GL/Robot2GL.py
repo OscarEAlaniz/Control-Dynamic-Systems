@@ -40,7 +40,7 @@ e=m2*l2*g0
 
 # parametros de simulacion
 Tstar = 0
-Tstop= 5
+Tstop= 10
 Ts=0.001
 
 
@@ -120,7 +120,7 @@ t = np.arange(Tstar,Tstop+2*Ts, Ts)
 
 #plot resultados
 plt.figure(1)
-plt.title("Rotot 2GL Posición")
+plt.title("Robot 2GL Posición")
 plt.plot(t,q1,'b', label=r'$q_1(t) $')
 plt.plot(t,q2,'r', label=r'$q_2(t) $')
 plt.ylabel('[m]')
@@ -129,7 +129,7 @@ plt.legend(loc='best')
 
 
 plt.figure(2)
-plt.title("Rotot 2GL  Velocidad")
+plt.title("Robot 2GL  Velocidad")
 plt.plot(t,q1p,'b', label=r'$\dot{q}_1(t) $')
 plt.plot(t,q2p,'r', label=r'$\dot{q}_2(t) $')
 plt.ylabel('[m\s]')
