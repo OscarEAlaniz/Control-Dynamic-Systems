@@ -61,7 +61,7 @@ t2[0] = 0
 
 
 
-qd =[0.5,0.5]
+qd =[1,1]
 qdp =[0,0]
 qdpp=[0,0]
 
@@ -220,7 +220,10 @@ def sgn(x):
         else: 
             return  0
 
-
+#inicializar promedios
+for i in range(N1):
+    max_x[i]=0.001
+    min_x[i]=0.001
 
 
 # simulacion dinamica
@@ -249,29 +252,8 @@ for k in range(N+1):
 
 
 
-    # Vector de funciones base  para q1
-    """
-    functionActVect[0]=tanh(V0[0]*x1[0]+V0[1]*x1[1]+V0[2]*x1[2]+V0[3]*x1[3]+V0[4]*x1[4]+V0[5]*x1[5])
-    functionActVect[1]=tanh(VV1[0]*x1[0]+VV1[1]*x1[1]+VV1[2]*x1[2]+VV1[3]*x1[3]+VV1[4]*x1[4]+VV1[5]*x1[5])
-    functionActVect[2]=tanh(VV2[0]*x1[0]+VV2[1]*x1[1]+VV2[2]*x1[2]+VV2[3]*x1[3]+VV2[4]*x1[4]+VV2[5]*x1[5])
-    functionActVect[3]=tanh(V3[0]*x1[0]+V3[1]*x1[1]+V3[2]*x1[2]+V3[3]*x1[3]+V3[4]*x1[4]+V3[5]*x1[5])
-    functionActVect[4]=tanh(V4[0]*x1[0]+V4[1]*x1[1]+V4[2]*x1[2]+V4[3]*x1[3]+V4[4]*x1[4]+V4[5]*x1[5])
-    functionActVect[5]=tanh(V5[0]*x1[0]+V5[1]*x1[1]+V5[2]*x1[2]+V5[3]*x1[3]+V5[4]*x1[4]+V5[5]*x1[5])
-    functionActVect[6]=tanh(V6[0]*x1[0]+V6[1]*x1[1]+V6[2]*x1[2]+V6[3]*x1[3]+V6[4]*x1[4]+V6[5]*x1[5])
-    functionActVect[7]=tanh(V7[0]*x1[0]+V7[1]*x1[1]+V7[2]*x1[2]+V7[3]*x1[3]+V7[4]*x1[4]+V7[5]*x1[5])
-    functionActVect[8]=tanh(V8[0]*x1[0]+V8[1]*x1[1]+V8[2]*x1[2]+V8[3]*x1[3]+V8[4]*x1[4]+V8[5]*x1[5])
-    functionActVect[9]=tanh(V9[0]*x1[0]+V9[1]*x1[1]+V9[2]*x1[2]+V9[3]*x1[3]+V9[4]*x1[4]+V9[5]*x1[5])
-    functionActVect[10]=tanh(V10[0]*x1[0]+V10[1]*x1[1]+V10[2]*x1[2]+V10[3]*x1[3]+V10[4]*x1[4]+V10[5]*x1[5])
-    functionActVect[11]=tanh(V11[0]*x1[0]+V11[1]*x1[1]+V11[2]*x1[2]+V11[3]*x1[3]+V11[4]*x1[4]+V11[5]*x1[5])
-    functionActVect[12]=tanh(V12[0]*x1[0]+V12[1]*x1[1]+V12[2]*x1[2]+V12[3]*x1[3]+V12[4]*x1[4]+V12[5]*x1[5])
-    functionActVect[13]=tanh(V13[0]*x1[0]+V11[1]*x1[1]+V11[2]*x1[2]+V11[3]*x1[3]+V11[4]*x1[4]+V11[5]*x1[5])
-    functionActVect[14]=tanh(V14[0]*x1[0]+V14[1]*x1[1]+V14[2]*x1[2]+V14[3]*x1[3]+V14[4]*x1[4]+V14[5]*x1[5])
-    functionActVect[15]=tanh(V15[0]*x1[0]+V15[1]*x1[1]+V15[2]*x1[2]+V15[3]*x1[3]+V15[4]*x1[4]+V15[5]*x1[5])
-    functionActVect[16]=tanh(V16[0]*x1[0]+V16[1]*x1[1]+V16[2]*x1[2]+V16[3]*x1[3]+V16[4]*x1[4]+V16[5]*x1[5])
-    functionActVect[17]=tanh(V17[0]*x1[0]+V17[1]*x1[1]+V17[2]*x1[2]+V17[3]*x1[3]+V17[4]*x1[4]+V17[5]*x1[5])
-    functionActVect[18]=tanh(V18[0]*x1[0]+V18[1]*x1[1]+V18[2]*x1[2]+V18[3]*x1[3]+V18[4]*x1[4]+V18[5]*x1[5])
-    functionActVect[19]=tanh(V19[0]*x1[0]+V19[1]*x1[1]+V19[2]*x1[2]+V19[3]*x1[3]+V19[4]*x1[4]+V19[5]*x1[5])
-    """
+    # Vector de funciones base  
+ 
     functionActVect[0]=tanh(V0[0]*x1[0]+V0[1]*x1[1]+V0[2]*x1[2]+V0[3]*x1[3]+V0[4]*x1[4]+V0[5]*x1[5]+V0[6]*x1[6]+V0[7]*x1[7]+V0[8]*x1[8]+V0[9]*x1[9]+V0[10]*x1[10])
     functionActVect[1]=tanh(VV1[0]*x1[0]+VV1[1]*x1[1]+VV1[2]*x1[2]+VV1[3]*x1[3]+VV1[4]*x1[4]+VV1[5]*x1[5]+VV1[6]*x1[6]+VV1[7]*x1[7]+VV1[8]*x1[8]+VV1[9]*x1[9]+VV1[10]*x1[10])
     functionActVect[2]=tanh(VV2[0]*x1[0]+VV2[1]*x1[1]+VV2[2]*x1[2]+VV2[3]*x1[3]+VV2[4]*x1[4]+VV2[5]*x1[5]+VV2[6]*x1[6]+VV2[7]*x1[7]+VV2[8]*x1[8]+VV2[9]*x1[9]+VV2[10]*x1[10])
@@ -294,8 +276,7 @@ for k in range(N+1):
     functionActVect[19]=tanh(V19[0]*x1[0]+V19[1]*x1[1]+V19[2]*x1[2]+V19[3]*x1[3]+V19[4]*x1[4]+V19[5]*x1[5]+V19[6]*x1[6]+V19[7]*x1[7]+V19[8]*x1[8]+V19[9]*x1[9]+V19[10]*x1[10])
 
     
-
-
+    
     # Ley de adaptacion de la matrices de pesos q1
     w00[k+1]=w00[k]+Ts*(F[0]*functionActVect[0]*r[0]-Ka*norm_r*F[0]*w00[k])
     w01[k+1]=w01[k]+Ts*(F[1]*functionActVect[1]*r[0]-Ka*norm_r*F[1]*w01[k])
@@ -339,7 +320,8 @@ for k in range(N+1):
     w37[k+1]=w37[k]+Ts*(F[17]*functionActVect[17]*r[1]-Ka*norm_r*F[17]*w37[k])
     w38[k+1]=w38[k]+Ts*(F[18]*functionActVect[18]*r[1]-Ka*norm_r*F[18]*w38[k])
     w39[k+1]=w39[k]+Ts*(F[19]*functionActVect[19]*r[1]-Ka*norm_r*F[19]*w39[k])
-
+    
+   
     w00[k]=w00[k+1]
     w01[k]=w01[k+1]
     w02[k]=w02[k+1]
@@ -383,8 +365,8 @@ for k in range(N+1):
 
     Pesos_estim=[w00,w01,w02,w03,w04,w05,w06,w07,w08,w09,w10,w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,w31,w32,w33,w34,w35,w36,w37,w38,w39]
   
-    #fnn=w00[k]*functionActVect[0]+w01[k]*functionActVect[1]
-    
+
+
     fnn1[k]=fnn1[k]+(w00[k]*functionActVect[0]+w01[k]*functionActVect[1]+w02[k]*functionActVect[2]+w03[k]*functionActVect[3]
     +w04[k]*functionActVect[4]+w05[k]*functionActVect[5]+w06[k]*functionActVect[6]+w07[k]*functionActVect[7]+w08[k]*functionActVect[8]+w09[k]*functionActVect[9]
     +w10[k]*functionActVect[10]+w11[k]*functionActVect[11]+w12[k]*functionActVect[12]+w13[k]*functionActVect[13]+w14[k]*functionActVect[14]+w15[k]*functionActVect[15]
