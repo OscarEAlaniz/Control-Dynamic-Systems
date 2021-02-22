@@ -232,7 +232,7 @@ for i in range(N1):
 for k in range(N+1):
   
 
-    qd =[10,2]
+    qd =[1,1]
     qdp =[0,0]
     qdpp=[0,0]
     # señales de error
@@ -242,8 +242,8 @@ for k in range(N+1):
     e2p[k]=qdp[1]-q2p[k]
 
 
-    er=[e1,e2]
-    erp=[e1p,e2p]
+    er=[e1[k],e2[k]]
+    erp=[e1p[k],e2p[k]]
    
 
     #filtrado de error
@@ -251,8 +251,8 @@ for k in range(N+1):
     r1[k]=DELTA[0]*er[0]+erp[0]
     r2[k]=DELTA[1]*er[1]+erp[1]
 
-    r =[r1,r2]
-    
+    r =[r1[k],r2[k]]
+
     norm_r=sqrt(r[0]*r[0]+r[1]*r[1])
     # Terminos PD
     PD[0]=Kv[0]*r[0]
