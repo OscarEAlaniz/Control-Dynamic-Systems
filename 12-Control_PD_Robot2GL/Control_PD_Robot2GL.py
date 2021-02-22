@@ -31,7 +31,7 @@ B22=60
 
 # parametros de simulacion
 Tstar = 0
-Tstop= 10
+Tstop= 60
 Ts=0.001
 
 
@@ -50,6 +50,10 @@ e1 =np.zeros(N+2)
 e1p=np.zeros(N+2)
 e2 = np.zeros(N+2)
 e2p = np.zeros(N+2)
+seno = np.zeros(N+2)
+sen = np.zeros(N+2)
+coseno = np.zeros(N+2)
+cose = np.zeros(N+2)
 
 q1[0] = 0
 q1p[0] = 0
@@ -64,11 +68,21 @@ Kv=20
 Kp=100
 
 # simulacion dinamica
+t = np.arange(Tstar,Tstop+2*Ts, Ts)
 
 for k in range(N+1):
-    qd =[1,2]
-    qdp =[0,0]
-    qdpp=[0,0]
+    period=2
+    amp1=0.1
+    amp2=0.1
+    fact=0.0005
+    seno[k]=sin(fact*k)
+    sen[k]=amp1*seno[k]
+    coseno[k]=cos(fact*k)
+    cose[k]=amp2*coseno[k]
+ 
+    qd =[amp1*seno[k],amp2*coseno[k]]
+    qdp =[fact*amp1*cose[k],-fact*amp2*seno[k]]
+    qdpp=[-fact*fact*amp1*seno[k],-fact*fact*amp2*coseno[k]]
     # señales de error
     e1[k]=qd[0]-q1[k]
     e2[k]=qd[1]-q2[k]
@@ -121,34 +135,29 @@ for k in range(N+1):
     q2p[k]=q2p[k+1]
     
 
-t = np.arange(Tstar,Tstop+2*Ts, Ts)
+
 
 
 
 #plot resultados
 plt.figure(1)
 plt.subplot(211)
-plt.title("Robot 2GL Posición y Velocidad")
-plt.plot(t,q1,'b', label=r'$q_1(t) $')
-plt.plot(t,q2,'r', label=r'$q_2(t) $')
+plt.title("Robot 2GL Posición ")
+plt.plot(t,sen,'b', label=r'$qd_1(t) $')
+plt.plot(t,q1,'r', label=r'$q_1(t) $')
 plt.ylabel('[m]')
 plt.legend(loc='best')
 plt.subplot(212)
-plt.plot(t,e1,'b', label=r'$\dot{q}_1(t) $')
-plt.plot(t,e2,'r', label=r'$\dot{q}_2(t) $')
+plt.plot(t,cose,'b', label=r'$qd_2(t) $')
+plt.plot(t,q2,'r', label=r'$q_2(t) $')
 plt.ylabel('[m\s]')
 plt.xlabel('time')
 plt.legend(loc='best')
 
 
-"""
+
 plt.figure(2)
-plt.subplot(211)
 plt.title("señales de error")
-for i in range(2):
-    plt.plot(t,e[i], label=r'$e(t)$')
-plt.subplot(212)
-for i in range(2):
-    plt.plot(t,ep[i], label=r'$e(t) $')
-"""
+plt.plot(t,e1,'b', label=r'$e(t)$')
+plt.plot(t,e2,'r', label=r'$e(t)$')
 plt.show()
