@@ -30,7 +30,7 @@ e=m2*l2*g0
 
 # parametros de simulacion
 Tstar = 0
-Tstop= 30
+Tstop= 60
 Ts=0.001
 
 
@@ -61,9 +61,10 @@ t2[0] = 0
 
 
 
-qd =[1,1]
-qdp =[0,0]
-qdpp=[0,0]
+t = np.arange(Tstar,Tstop+2*Ts, Ts)
+
+
+
 
 er=[e1,e2]
 erp=[e1p,e2p]
@@ -229,7 +230,11 @@ for i in range(N1):
 # simulacion dinamica
 
 for k in range(N+1):
+  
 
+    qd =[10,2]
+    qdp =[0,0]
+    qdpp=[0,0]
     # señales de error
     er[0]=qd[0]-q1[k]
     er[1]=qd[1]-q2[k]
@@ -422,7 +427,7 @@ for k in range(N+1):
     q2p[k]=q2p[k+1]
     
 
-t = np.arange(Tstar,Tstop+2*Ts, Ts)
+
 
 
 
