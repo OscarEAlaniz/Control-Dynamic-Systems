@@ -50,14 +50,12 @@ e1 =np.zeros(N+2)
 e1p=np.zeros(N+2)
 e2 = np.zeros(N+2)
 e2p = np.zeros(N+2)
-#s1 = np.zeros(N+2)
-#s2 = np.zeros(N+2)
+
 q1[0] = 0
 q1p[0] = 0
 q2[0] = 0
 q2p[0] = 0    
-#tau1[0] = 0
-#tau2[0] = 0
+
 
 
 e=[]
@@ -77,8 +75,8 @@ for k in range(N+1):
     e1p[k]=qdp[0]-q1p[k]
     e2p[k]=qdp[1]-q2p[k]
 
-    e=[e1,e2]
-    ep=[e1p,e2p]
+    e=[e1[k],e2[k]]
+    ep=[e1p[k],e2p[k]]
 
 
     # calculo de los del controlador 
@@ -90,8 +88,8 @@ for k in range(N+1):
     N1=N1+(m1+m2)*g0*a1*cos(q1[k])+m2*g0*a2*cos(q1[k]+q2[k])
     N2=m2*a1*a2*q2p[k]*q2p[k]*sin(q2[k])+m2*g0*a2*cos(q1[k]+q2[k])
     # calculo de torques de control 
-    s1=qdpp[0]+Kv*e1p[k]+Kp*e1[k]
-    s2=qdpp[1]+Kv*e2p[k]+Kp*e2[k]
+    s1=qdpp[0]+Kv*ep[0]+Kp*e[0]
+    s2=qdpp[1]+Kv*ep[1]+Kp*e[1]
     tau1=M11*s1+M12*s2+N1
     tau2=M12*s1+M22*s2+N2
 
@@ -136,13 +134,14 @@ plt.plot(t,q2,'r', label=r'$q_2(t) $')
 plt.ylabel('[m]')
 plt.legend(loc='best')
 plt.subplot(212)
-plt.plot(t,q1p,'b', label=r'$\dot{q}_1(t) $')
-plt.plot(t,q2p,'r', label=r'$\dot{q}_2(t) $')
+plt.plot(t,e1,'b', label=r'$\dot{q}_1(t) $')
+plt.plot(t,e2,'r', label=r'$\dot{q}_2(t) $')
 plt.ylabel('[m\s]')
 plt.xlabel('time')
 plt.legend(loc='best')
 
 
+"""
 plt.figure(2)
 plt.subplot(211)
 plt.title("señales de error")
@@ -151,4 +150,5 @@ for i in range(2):
 plt.subplot(212)
 for i in range(2):
     plt.plot(t,ep[i], label=r'$e(t) $')
+"""
 plt.show()
